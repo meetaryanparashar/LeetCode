@@ -6,6 +6,7 @@ The majority element is the element that appears more than ⌊n / 2⌋ times. Yo
 
 #include <iostream>
 #include <vector>
+#include <algorithm> // for using sort in sorting approach
 
 using namespace std;
 
@@ -22,7 +23,7 @@ int isinArray(vector<int> &array, int element)
     }
     return -1;
 }
-int majorityElement(vector<int> &nums)
+int majorityElementMy(vector<int> &nums)
 {
     int n = nums.size();
     vector<int> elements;
@@ -54,6 +55,61 @@ int majorityElement(vector<int> &nums)
         }
     }
     return elements[max_idx];
+}
+
+// Bruteforce approach
+int majorityElementBF(vector<int> &nums)
+{
+    int n = nums.size();
+    for (int item : nums)
+    {
+        int count = 0;
+        for (int value : nums)
+        {
+            if (item == value)
+            {
+                count++;
+            }
+        }
+        if (count > n / 2)
+        {
+            return item;
+        }
+    }
+}
+
+// My sorting approach
+int majorityElementSort(vector<int> &nums)
+{
+    // sort
+    sort(nums.begin(), nums.end());
+
+    // Majority element always exist in array
+    int n = nums.size();
+    return nums[n / 2];
+}
+
+// Moore's voting algorithm
+int majorityElement(vector<int> &nums)
+{
+    int freq = 0, ans = 0;
+    int n = nums.size();
+    for (int i=0; i < n; i++)
+    {
+        if (freq == 0)
+        {
+            ans = nums[i];
+        }
+        if (nums[i] == ans)
+        {
+            freq++;
+        }
+        else
+        {
+            freq--;
+        }
+    }
+    return ans;
 }
 
 int main()
