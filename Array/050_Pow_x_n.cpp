@@ -32,7 +32,7 @@ double myPowBF(double x, int n)
 }
 
 // My Second approach. ----------- After Spending Hours I finally got this accepted by my own.
-double myPow(double x, int n)
+double myPowSapp(double x, int n)
 {
     double ans = 1;
     int raise = 1;
@@ -41,9 +41,9 @@ double myPow(double x, int n)
     bool minCase = false;
     if (n < 0)
     {
-        if (n == INT32_MIN)
+        if (n == INT32_MIN)             // we can use long integers to avoid int overflow.
         {
-            cout << "yare yare daza"<<endl;
+            // cout << "yare yare daza"<<endl;
             n = INT32_MIN + 1;
             cout << n<<endl;
             minCase = true;
@@ -85,11 +85,36 @@ double myPow(double x, int n)
     }
 }
 
+
+// Binary Exponentiation
+double myPow(double x, int n)
+{
+    long binaryForm = n;
+    if (n < 0)
+    {
+        x = 1/x;
+        binaryForm = -binaryForm;
+    }
+    
+    double expo = x;
+    double ans = 1;
+    while (binaryForm > 0)
+    {
+        if (binaryForm%2 == 1){
+            ans *= expo;
+        } 
+        expo *= expo;
+        binaryForm /= 2;
+    }
+    return ans;
+}
+
 int main()
 {
     // cout << myPow(1, 2147483647);
-    cout << myPow(2, -2147483648);
+    // cout << myPow(2, -2147483648);
     // cout << myPow(2, -3);
+    cout << myPow(0, 0);
     // cout << myPow(2.0, 10);
     // cout << INT32_MIN;
     return 0;
