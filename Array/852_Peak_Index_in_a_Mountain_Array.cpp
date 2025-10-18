@@ -11,6 +11,7 @@ Your task is to solve it in O(log(n)) time complexity.
 
 using namespace std;
 
+// first approach
 int peakIndexInMountainArray(vector<int>& arr) {
         int l = 1, r = arr.size()-2;  // assuming peak is not at start or end of array.
 
