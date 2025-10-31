@@ -13,6 +13,8 @@ using namespace std;
 
 
 // first appproach
+
+// I got a hint from course to use binary search algorithm. 
 int singleNonDuplicate(vector<int> &nums)
 {
 
