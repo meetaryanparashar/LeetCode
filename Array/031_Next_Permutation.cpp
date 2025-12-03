@@ -28,12 +28,13 @@ void nextPermutation(vector<int> &nums)
     }
     if (last == 0)
     {
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end());  // better to just reverse the array. 
         return;
     }
     // cout << "last is : " << nums[last] << " at : " << last << endl;
     int min_idx = last;
-    for (int i = last; i < nums.size(); i++)
+    for (int i = last; i < nums.size(); i++)  
+    // better to start searching out pivot from back because backwards array is arranged in decresing order.
     {
         if (nums[i] < nums[min_idx] && nums[i] > nums[last - 1])
         {
@@ -43,7 +44,7 @@ void nextPermutation(vector<int> &nums)
     // cout << "min element from " << last << " to  end is : " << nums[min_idx] << " at " << min_idx << endl;
 
     swap(nums[min_idx], nums[last - 1]);
-    sort(nums.begin() + last, nums.end());
+    sort(nums.begin() + last, nums.end());  // here too better to reverse the array
     return;
 }
 
