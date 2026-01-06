@@ -19,45 +19,85 @@ Note: The characters in the array beyond the returned length do not matter and s
 
 using namespace std;
 
-int compress(vector<char>& chars) {
-        string s = "";
-        // s + 'a';
-        s+chars[0];
-        int count = 1;
-        for (int i = 1; i < chars.size(); i++){
-            if (chars[i] == chars[i-1])
+
+// Accepted !!!
+int compress(vector<char> &chars)
+{
+    if (chars.size() ==1)
+    {
+        return 1;
+    }
+    
+
+    string s = "";
+
+    s.push_back(chars[0]);
+    int freq = 1;
+
+    for (int i = 1; i < chars.size(); i++)
+    {
+        if (chars[i] == chars[i - 1])
+        {
+            // cout << "adding freq i is : " << i << endl;
+            freq++;
+        }
+        else
+        {
+            if (freq != 1)
             {
-                count++;
-            }
-            else{ // adding count in string.
-                string num = "";
-                int digit;
-                int digit_count = 0;
-                while (count > 0)
+                // cout << "freq is : " << freq << endl;
+                // convert freq into digit char
+                string digits = "";
+
+                while (freq > 0)
                 {
-                    digit = count%10;
-                    count = count/10;
-                    digit_count++;
-                    num = num+char(digit+48);
+                    digits.push_back(char(int('0') + freq % 10));
+                    freq = freq / 10;
                 }
-                for (int i = digit_count -1; i >=0; i++)
+                while (digits.length() != 0)
                 {
-                    s.append(num[i]);
-                    s = s+num[i];
+                    s.push_back(digits.back());
+                    digits.pop_back();
                 }
-                count = 1;
-                s = s+chars[i];
+                freq = 1;
             }
-            
+            s.push_back(chars[i]);
         }
-        for (char x : chars){
-            cout << s << " ";
+    }
+    // cout << "safe here" << endl;
+    if (chars[chars.size()-1] == chars[chars.size() - 2])
+    {
+        // cout << "freq now is : "<<freq<<endl;
+        string digits = "";
+
+        while (freq > 0)
+        {
+            digits.push_back(char(int('0') + freq % 10));
+            freq = freq / 10;
         }
-        return 0;
+        while (digits.length() != 0)
+        {
+            s.push_back(digits.back());
+            digits.pop_back();
+        }
     }
 
-int main(){
-    vector<char> input = {'a', 'a','b', 'c', 'c', 'c','c'};
-    compress(input);
+    for (int i = 0; i < s.length(); i++)
+    {
+        chars[i] = s[i];
+    }
+    
+
+    // for (char x : chars)
+    // {
+    //     cout << x << " ";
+    // }
+    return s.length();
+}
+
+int main()
+{
+    vector<char> input = {'a'};
+    cout << compress(input);
     return 0;
 }
